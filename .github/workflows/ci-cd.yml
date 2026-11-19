@@ -37,3 +37,32 @@ jobs:
       - run: npm ci
       - run: npm test -- --watchAll=false --passWithNoTests
       - run: npm run build
+
+  # (extra) sobe tudo com Docker e faz testes de aceitação com curl
+  acceptance:
+    runs-on: ubuntu-latest
+    needs: [test-backend, test-frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Subir containers
+        run: docker compose up -d --build
+      - name: Aguardar a API
+        run: |
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8080/api/autores && break
+            sleep 5
+          done
+      - name: Criar autor e livro vinculado
+        run: |
+          curl -f -X POST http://localhost:8080/api/autores \
+            -H "Content-Type: application/json" \
+            -d '{"nome":"Machado de Assis","nacionalidade":"Brasileira"}'
+          curl -f -X POST http://localhost:8080/api/livros \
+            -H "Content-Type: application/json" \
+            -d '{"titulo":"Dom Casmurro","anoPublicacao":1899,"genero":"Romance","autor":{"id":1}}'
+          curl -f http://localhost:8080/api/livros
+      - name: Frontend responde
+        run: curl -f http://localhost:3000
+      - name: Derrubar containers
+        if: always()
+        run: docker compose down -v
