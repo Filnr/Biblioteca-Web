@@ -35,6 +35,22 @@ class IntegracaoTest {
     }
 
     @Test
+    void deveVincularLivroAAutor() throws Exception {
+        long autorId = criarAutor("Machado de Assis");
+
+        String livroJson = "{\"titulo\":\"Dom Casmurro\",\"isbn\":\"978-8535910667\","
+                + "\"anoPublicacao\":1899,\"genero\":\"Romance\",\"autor\":{\"id\":" + autorId + "}}";
+
+        mockMvc.perform(post("/api/livros")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(livroJson))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.titulo").value("Dom Casmurro"))
+                .andExpect(jsonPath("$.autor.id").value(autorId))
+                .andExpect(jsonPath("$.autor.nome").value("Machado de Assis"));
+    }
+
+    @Test
     void deveExecutarFluxoCompletoAutor() throws Exception {
         long id = criarAutor("Clarice Lispector");
 
