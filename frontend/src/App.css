@@ -1,0 +1,29 @@
+:root { --azul: #1f4e79; --cinza: #f3f4f6; --borda: #d1d5db; --perigo: #b42318; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #1f2937; background: #fff; }
+
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+        padding: 12px 24px; background: var(--azul); color: #fff; }
+.topo h1 { margin: 0; font-size: 1.25rem; }
+.topo nav a { color: #dbe7f3; margin-left: 16px; text-decoration: none; padding-bottom: 2px; }
+.topo nav a.active { color: #fff; border-bottom: 2px solid #fff; }
+
+.conteudo { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+.barra { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.barra h2 { margin: 0; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--borda); }
+th { background: var(--cinza); }
+
+.btn { display: inline-block; padding: 6px 12px; border: 1px solid var(--azul); border-radius: 4px; background: var(--azul);
+       color: #fff; text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+.btn.sec { background: #fff; color: var(--azul); }
+.btn.perigo { background: #fff; color: var(--perigo); border-color: var(--perigo); }
+.acoes { display: flex; gap: 8px; }
+
+form { display: grid; gap: 12px; max-width: 480px; }
+label { display: grid; gap: 4px; font-weight: 600; font-size: 0.9rem; }
+input, select { padding: 8px; border: 1px solid var(--borda); border-radius: 4px; font: inherit; }
+.erro { color: var(--perigo); margin: 8px 0; }
+.vazio { color: #6b7280; }
