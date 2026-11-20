@@ -13,5 +13,6 @@ const crud = (recurso) => ({
   deletar: (id) => api.delete(`/${recurso}/${id}`),
 });
 
-export { crud };
+export const autorService = crud('autores');
+
 export default api;
