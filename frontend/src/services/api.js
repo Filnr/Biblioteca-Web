@@ -15,4 +15,9 @@ const crud = (recurso) => ({
 
 export const autorService = crud('autores');
 
+export const livroService = {
+  ...crud('livros'),
+  listarPorAutor: (autorId) => api.get(`/livros/autor/${autorId}`),
+};
+
 export default api;
